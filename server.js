@@ -9,6 +9,7 @@ import session from "express-session";
 import dotenv from "dotenv";
 import logger from "morgan";
 import { StatusCodes } from "http-status-codes";
+import sequelize from "./config/sequelize.js";
 
 // custom middlewares
 import { errorHandlerMiddleware } from "./middleware/errorHandler.js";
@@ -35,7 +36,17 @@ app.get("/", (req, res, next) => {
 app.use(errorHandlerMiddleware);
 app.use("*", __404_err_page);
 
-const port = process.env.PORT || 4040;
-app.listen(port, () =>
-  console.info(`Server listening on http:\//localhost:${port}`)
-);
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("connected to the DB!");
+    const port = process.env.PORT || 4040;
+    app.listen(port, () =>
+      console.info(`Server listening on http:\//localhost:${port}`)
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+startServer();

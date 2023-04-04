@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "A Simple Crud API With Postgresql as the database.",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "nodemon server",
+    "babel-dev": "nodemon --exec babel-node server.js",
     "sequelize": "sequelize init",
     "sequelize-init": "npx sequelize-cli init",
     "create-Authmodel": "npx sequelize-cli model:generate --name UserAuthModel --attributes username:string,role:string,email:string,password:string",
@@ -27,6 +27,7 @@
     "@babel/core": "^7.21.4",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.4",
+    "@babel/register": "^7.21.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -43,5 +44,8 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.30.0",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }

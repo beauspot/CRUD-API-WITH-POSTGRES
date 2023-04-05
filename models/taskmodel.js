@@ -12,7 +12,7 @@ export default (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(UserAuthModel, { foreignKey: "userId", as: "user" });
     }
-    // Hiding the Id field cause its a number of records
+    // Hiding the protected field cause its a number of records
     toJSON() {
       return { ...this.get(), id: undefined, userId: undefined };
     }

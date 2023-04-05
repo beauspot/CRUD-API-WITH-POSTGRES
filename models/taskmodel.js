@@ -1,6 +1,5 @@
 "use strict";
 import { Model } from "sequelize";
-import { FOREIGNKEYS } from "sequelize/types/query-types";
 export default (sequelize, DataTypes) => {
   class Taskmodel extends Model {
     /**

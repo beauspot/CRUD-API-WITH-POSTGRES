@@ -10,13 +10,9 @@ import dotenv from "dotenv";
 import logger from "morgan";
 import { StatusCodes } from "http-status-codes";
 import sequelize from "./config/sequelize.js";
-/* import {
-  getASingleTask,
-  createATask,
-  getASingleTask,
-  updateASingleTask,
-  deleteASingleTask,
-} from "./controllers/taskControllers.js"; */
+
+import TaskRouter from "./routes/taskRoutes.js";
+import AuthRouter from "./routes/authRoutes.js";
 
 // custom middlewares
 import { errorHandlerMiddleware } from "./middleware/errorHandler.js";
@@ -36,11 +32,16 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 
-//app.use("/api/v2/tasks", taskRoutes);
+app.use("/api/v2/usertasks", TaskRouter);
+app.use("/api/v2/authuser", AuthRouter);
 
 /* app.get("/", (req, res, next) => {
-  res.status(StatusCodes.OK).json({ message: "Hello World" });
+  res.status(StatusCodes.PERMANENT_REDIRECT).redirect("/api/v2/usertasks");
 }); */
+
+app.get("/", (req, res, next) => {
+  res.redirect("/api/v2/usertasks/alltasks");
+});
 
 app.use(errorHandlerMiddleware);
 app.use("*", __404_err_page);

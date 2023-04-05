@@ -10,7 +10,6 @@ export default {
     logging: false,
   },
 };
-<<<<<<< HEAD
 
 /* {
   "development": {
@@ -38,5 +37,3 @@ export default {
   }
 }
  */
-=======
->>>>>>> 2b6d2d1de1659d656dbbcacdf0a3662fc3494a96

@@ -11,9 +11,15 @@ export default (sequelize, DataTypes) => {
       // define association here
       this.hasMany(TaskModel, { foreignKey: "userId", as: "userTasks" });
     }
-    // Hiding the ID fields!
+
     toJSON() {
-      return { ...this.get(), id: undefined };
+      // Hiding protected fields!
+      const attributes = { ...this.get() };
+      // eslint-disable-next-line no restricted-syntax
+      for (const a of PROTECTED_ATTRIBUTES) {
+        delete attributes[a];
+      }
+      return attributes; //{ ...this.get(), id: undefined };
     }
   }
   UserAuthModel.init(
@@ -43,6 +49,10 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          isEmail: {
+            args: true,
+            msg: "Please enter a valid email address",
+          },
           notNull: {
             msg: "The email field cannot be empty.",
           },
